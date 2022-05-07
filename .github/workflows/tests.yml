@@ -27,9 +27,12 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        python -m pip install pytest coverage-badge
+        python -m pip install pytest pytest-cov
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Test with pytest
+    - name: Test with pytest and save coverage 
       run: |
-        coverage run -m pytest autograd_tests.py
-        coverage-badge -o coverage.svg
+        pytest --cov=./ --cov-report=xml autograd_tests.py
+    - name: "Upload coverage to Codecov"
+      uses: codecov/codecov-action@v2
+      with:
+        fail_ci_if_error: true
