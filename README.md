@@ -1,3 +1,5 @@
+[![Tests](https://github.com/DenShlk/autograd/actions/workflows/tests.yml/badge.svg)](https://github.com/DenShlk/autograd/actions/workflows/tests.yml)
+
 # ?name?
 
 My pure-python implementation of autograd - engine for automated gradient computation. 
