@@ -12,24 +12,32 @@ def random_float():
 
 
 def get_diff(my_val, torch_val):
-    if isinstance(my_val, Value) and isinstance(torch_val, torch.Tensor):
-        return abs(my_val.value - torch_val.item())
+    if isinstance(my_val, Value):
+        return get_diff(my_val.item(), torch_val)
+    if isinstance(torch_val, torch.Tensor):
+        return get_diff(my_val, torch_val.item())
+
+    return abs(my_val - torch_val)
 
 
 def get_relative_diff(my_val, torch_val):
-    if isinstance(my_val, Value) and isinstance(torch_val, torch.Tensor):
-        return abs(abs(my_val.value / torch_val.item()) - 1)
+    if isinstance(my_val, Value):
+        return get_relative_diff(my_val.item(), torch_val)
+    if isinstance(torch_val, torch.Tensor):
+        return get_relative_diff(my_val, torch_val.item())
+
+    return abs(abs(my_val / torch_val) - 1)
 
 
 def assert_equal(my_val, torch_val):
     assert get_diff(my_val, torch_val) == 0.
 
 
-def assert_almost_equal(my_val, torch_val, eps=1e-5):
+def assert_almost_equal(my_val, torch_val, eps=1e-4):
     assert get_diff(my_val, torch_val) < eps or get_relative_diff(my_val, torch_val) < eps
 
 
-def base_value_binary_op_test(op, a, b, eps=1e-5):
+def base_value_binary_op_test(op, a, b, eps=1e-4):
     truth = op(torch.Tensor([a]), torch.Tensor([b]))
     assert_almost_equal(op(Value(a), Value(b)), truth, eps=eps)
     assert_almost_equal(op(Value(a), b), truth, eps=eps)
@@ -46,7 +54,7 @@ def value_binary_op_normalized_test(op):
 def value_binary_op_different_scales_test(op):
     iters = ITERATIONS_BUDGET // 5
     power = 5
-    eps = 1e-5
+    eps = 1e-4
 
     for _ in range(iters):
         a = random_float() * (10 ** random.randint(-power, power))
@@ -179,9 +187,11 @@ def test_gradients_for_random_expressions():
         values = [random_float() for _ in range(vars_count)]
 
         def collect_grad_values_autograd(res, vals):
+            res.backward()
             return [v.grad() for v in vals]
 
         def collect_grad_values_torch(res, vals):
+            res.backward()
             return [v.grad for v in vals]
 
         my_res, my_ok = execute_expression(expr, var_names, values,
