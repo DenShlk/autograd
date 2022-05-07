@@ -7,6 +7,8 @@ from tqdm.auto import tqdm
 
 from autograd import Tensor
 
+from nn import Module, LinearLayer, LeakyReLu, SGD, mse_loss
+
 ds = torchvision.datasets.MNIST('./mnist', train=True, download=True,
                                 transform=
                                 T.Compose([
@@ -16,8 +18,6 @@ ds = torchvision.datasets.MNIST('./mnist', train=True, download=True,
 dl = torch.utils.data.DataLoader(ds,
                                  batch_size=2,
                                  shuffle=True)
-
-from nn import Module, LinearLayer, LeakyReLu, SGD, mse_loss
 
 
 class Net(Module):
