@@ -1,4 +1,5 @@
 [![Tests](https://github.com/DenShlk/autograd/actions/workflows/tests.yml/badge.svg)](https://github.com/DenShlk/autograd/actions/workflows/tests.yml)
+[![codecov](https://codecov.io/gh/DenShlk/autograd/branch/master/graph/badge.svg?token=Y4D0CQFKFE)](https://codecov.io/gh/DenShlk/autograd)
 
 # ?name?
 
