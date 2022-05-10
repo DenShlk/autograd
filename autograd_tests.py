@@ -1,6 +1,8 @@
-from autograd import *
 import random
+
 import torch
+
+from value import Value
 
 ITERATIONS_BUDGET = 10000
 
@@ -145,6 +147,9 @@ def execute_expression(expr, var_names, var_values, mode, finalizer=lambda res, 
         return 'inf', 0
 
     return finalizer(result, values), 1
+
+
+from value import exp  # yes, we need this
 
 
 def test_value_random_expressions():

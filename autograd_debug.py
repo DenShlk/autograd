@@ -5,7 +5,7 @@ import torchvision.transforms as T
 from line_profiler_pycharm import profile
 from tqdm.auto import tqdm
 
-from autograd import Tensor
+from tensor import Tensor
 
 from nn import Module, LinearLayer, LeakyReLu, SGD, mse_loss
 

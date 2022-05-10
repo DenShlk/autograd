@@ -3,6 +3,7 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/.pytest_cache" />
+      <excludeFolder url="file://$MODULE_DIR$/mnist" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.8 (clip)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

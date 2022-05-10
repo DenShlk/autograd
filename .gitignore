@@ -1,3 +1,4 @@
 *.pclprof
 *.pkl
 .pytest_cache
+/mnist/

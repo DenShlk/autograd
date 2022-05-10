@@ -10,7 +10,7 @@ def get_shape(data):
 
 
 def rand_tensor(shape, require_grad=True):
-    from autograd import Tensor
+    from tensor import Tensor
 
     if len(shape) == 1:
         return Tensor([
